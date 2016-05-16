@@ -179,11 +179,14 @@ if(NOT ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "armv7l")
 endif()
 if( ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "armv7l")
   #set(optimization_flags_cc "${optimization_flags_cc} -mtune=cortex-a7 -O2")
-  set(optimization_flags_cc "${optimization_flags_cc} -O2")
+  #https://jan.newmarch.name/RPi/Compile/
+  set(optimization_flags_cc "${optimization_flags_cc} -mtune=cortex-a7")
+  #set(optimization_flags_cc "${optimization_flags_cc}")
+set(optimization_flags_lt "${optimization_flags_lt}")
 endif()
 
   set(optimization_flags_cc "-pipe ${optimization_flags_cc}") #TODO use -Ofast instead of -O3
-  set(optimization_flags_lt "-O2 ${optimization_flags_lt}")
+  #set(optimization_flags_lt "-O2 ${optimization_flags_lt}")
 
   if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" AND NOT MINGW)
     message( "\t@GNU" )
@@ -234,9 +237,13 @@ if( ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "armv7l")
     set(shared_compile_flags "${shared_compile_flags} ${stdlib_common} -fdiagnostics-show-option")
 endif()
 
-  set (internal_compiler_warning_flags "${internal_compiler_warning_flags} -Werror -Wextra -Wreturn-type -Wunused -Wno-unused-variable -Wno-unused-parameter -Wno-missing-field-initializers")
+  ##set (internal_compiler_warning_flags "${internal_compiler_warning_flags} -Werror -Wextra -Wreturn-type -Wunused -Wno-unused-variable -Wno-unused-parameter -Wno-missing-field-initializers")
   #set (external_compiler_warning_flags "${external_compiler_warning_flags} -Wno-unused-variable -Wno-unused-parameter -Wno-incompatible-pointer-types -Wno-deprecated-declarations")
-  set (external_compiler_warning_flags "${external_compiler_warning_flags} -Wno-unused-variable -Wno-unused-parameter -Wno-deprecated-declarations")
+  ##set (external_compiler_warning_flags "${external_compiler_warning_flags} -Wno-unused-variable -Wno-unused-parameter -Wno-deprecated-declarations")
+
+   set (internal_compiler_warning_flags "${internal_compiler_warning_flags} -Werror -Wextra -Wreturn-type -Wunused -Wno-unused-variable -Wno-unused-parameter -Wno-missing-field-initializers")
+   set (external_compiler_warning_flags "${external_compiler_warning_flags} -Wno-unused-variable -Wno-unused-parameter -Wno-incompatible-pointer-types -Wno-deprecated-declarations")
+
 
   if(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     set(shared_compile_flags "${shared_compile_flags} -fPIC")
@@ -318,4 +325,3 @@ set(COMMON_COMPILER_DEFINITIONS_STR)
 foreach(compiler_definition ${COMMON_COMPILER_DEFINITIONS})
   set(COMMON_COMPILER_DEFINITIONS_STR "${COMMON_COMPILER_DEFINITIONS_STR} ${compiler_definition}")
 endforeach()
-
