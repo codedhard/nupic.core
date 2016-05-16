@@ -318,3 +318,4 @@ set(COMMON_COMPILER_DEFINITIONS_STR)
 foreach(compiler_definition ${COMMON_COMPILER_DEFINITIONS})
   set(COMMON_COMPILER_DEFINITIONS_STR "${COMMON_COMPILER_DEFINITIONS_STR} ${compiler_definition}")
 endforeach()
+
